@@ -1,4 +1,68 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 ">
+
+			<form #signInForm="ngForm" (ngSubmit)="onSubmit(signInForm)">
+      <div id="userDatagroup"  #userData="ngModelGroup" ngModelGroup="userData">
+      	<div class="form-group">
+					<label for="username" >Username: </label>
+					<input
+              type="Text"
+              id="username"
+              class="form-control"
+              name="username"
+              required
+              ngModel
+              #username="ngModel"
+          >
+					<span *ngIf="!username.valid && username.touched"> Please select valids username !</span>
+				</div>
+
+				<div class="form-group">
+					<label for="email" >Email: </label>
+					<input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            ngModel
+            required
+            email
+            #email="ngModel"
+          >
+				 <span *ngIf="!email.valid && email.touched"> Please select valid email Id !</span>
+				</div>
+      <span *ngIf="!userData.valid && userData.touched"> Please select valid data !</span>
+      </div>
+       
+				<div class="from-group">
+					<label for="secretQuestions" >Secret Questions ?</label>
+					<select
+              id="secretQuestions"
+              class="form-control"
+              name="secret"
+              [ngModel]="defaultQuestion"
+              required
+              #secret="ngModel">
+            <option value="city">what is your favorite city?</option>
+            <option value="color"> what is your favorite color?</option>
+        </select>
+				</div>
+
+        <div class="from-group">
+				  <textarea 
+            name="questionanswer" 
+            row=4
+            [(ngModel)]="answer"
+            class="form-control"
+            >
+          </textarea>
+          <p> your answer is : {{answer}}
+        </div>
+
+				<button class="btn btn-primary" type="submit" [disabled]="!signInForm.valid">Submit</button>
+
+			</form>
+		</div>
+	</div>
+</div>

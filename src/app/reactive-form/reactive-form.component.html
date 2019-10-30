@@ -1,0 +1,39 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 ">
+
+			<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+       	<div class="form-group">
+					<label for="username" >Username: </label>
+					<input
+              type="Text" 
+              id="username"
+              formControlName="username"
+              class="form-control"
+          >
+				</div>
+        <span *ngIf=" !signUpForm.get('username').valid && signUpForm.get('username').touched" > Please provide valid username!</span>
+
+				<div class="form-group">
+					<label for="email" >Email: </label>
+					<input 
+              type="email" 
+              id="email" 
+              formControlName="email"  
+              class="form-control">
+				</div>
+        <span *ngIf=" !signUpForm.get('email').valid && signUpForm.get('email').touched" > Please provide valid email!</span>
+      
+    		<div class="radio" *ngFor = "let gendr of genders">
+         <label> <input 
+            type="radio"
+            formControlname="gender"
+            [value]="gendr"
+            >{{gendr}}</label>
+        </div>
+
+				<button class="btn btn-primary" type="submit" [disabled]="!signUpForm.valid">Submit</button>
+  		</form>
+		</div>
+	</div>
+</div>

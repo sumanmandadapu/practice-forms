@@ -3,7 +3,8 @@
 		<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 ">
 
 			<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-       	<div class="form-group">
+       	<div formGroupName="userdata">
+         <div class="form-group">
 					<label for="username" >Username: </label>
 					<input
               type="Text" 
@@ -12,7 +13,7 @@
               class="form-control"
           >
 				</div>
-        <span *ngIf=" !signUpForm.get('username').valid && signUpForm.get('username').touched" > Please provide valid username!</span>
+        <span *ngIf=" !signUpForm.get('userdata.username').valid && signUpForm.get('userdata.username').touched" class="help-block"> Please provide valid username!</span>
 
 				<div class="form-group">
 					<label for="email" >Email: </label>
@@ -22,15 +23,19 @@
               formControlName="email"  
               class="form-control">
 				</div>
-        <span *ngIf=" !signUpForm.get('email').valid && signUpForm.get('email').touched" > Please provide valid email!</span>
-      
+        <span *ngIf=" !signUpForm.get('userdata.email').valid && signUpForm.get('userdata.email').touched" class="help-block"> Please provide valid email!</span>
+      	</div>
     		<div class="radio" *ngFor = "let gendr of genders">
          <label> <input 
             type="radio"
-            formControlname="gender"
+            formControlName="gender"
             [value]="gendr"
             >{{gendr}}</label>
         </div>
+        <span *ngIf="!signUpForm.valid && signUpForm.touched" class="help-block">Please provide valid data!</span>
+
+       
+
 
 				<button class="btn btn-primary" type="submit" [disabled]="!signUpForm.valid">Submit</button>
   		</form>

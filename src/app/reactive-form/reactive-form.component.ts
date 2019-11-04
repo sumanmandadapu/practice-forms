@@ -10,6 +10,7 @@ export class ReactiveFormComponent implements OnInit {
 
  genders  = ['Male','Female'];
  signUpForm :FormGroup;
+ forbiddenHobbies = ['DRINK','SMOKE'];
 
   constructor() { }
 
@@ -19,17 +20,33 @@ export class ReactiveFormComponent implements OnInit {
       'username' :new FormControl(null,Validators.required) ,
       'email' :new FormControl(null,[Validators.required,Validators.email]) ,}),
       'gender' :new FormControl('Male'),
-      'hobbies': new FormArray(null)
+      'hobbies': new FormArray([])
     });
   }
 onSubmit(){
+  console.log(this.signUpForm);
   console.log(this.signUpForm.value);
 }
 
 onAddHobbie(){
   (<FormArray>this.signUpForm.get('hobbies')).push(
-    new FormControl(null,Validators.required)
+    new FormControl(null,[Validators.required,this.forbiddenHobbie.bind(this)])
   );
 }
+
+getControls() {
+  return (<FormArray>this.signUpForm.get('hobbies')).controls;
+}
+
+forbiddenHobbie(control:FormControl):{ [verror:string] : boolean} {
   
+  if (this.forbiddenHobbies.indexOf(control.value)!=-1){
+    console.log(control.value);
+    return {'invalid emails': true};
+  }
+  else{
+    return null;
+  }
+}
+
 }

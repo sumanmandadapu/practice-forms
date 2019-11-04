@@ -25,20 +25,32 @@
 				</div>
         <span *ngIf=" !signUpForm.get('userdata.email').valid && signUpForm.get('userdata.email').touched" class="help-block"> Please provide valid email!</span>
       	</div>
-    		<div class="radio" *ngFor = "let gendr of genders">
+    		
+        <div class="radio" *ngFor = "let gendr of genders">
          <label> <input 
             type="radio"
             formControlName="gender"
             [value]="gendr"
             >{{gendr}}</label>
         </div>
+
+        <div class="form-group">
+            <button class="btn btn-normal" type="button" (click)="onAddHobbie()">Add Hobbie</button>
+        </div>
+
+        <div 
+          class="form-group"
+          formArrayName="hobbies"
+          *ngFor="let hobbie of getControls(); let i = index"
+        >
+          <input type="text" class="form-control" [formControlName]="i" >
+        </div>
+      
         <span *ngIf="!signUpForm.valid && signUpForm.touched" class="help-block">Please provide valid data!</span>
-
-       
-
-
-				<button class="btn btn-primary" type="submit" [disabled]="!signUpForm.valid">Submit</button>
-  		</form>
+     
+     		<button class="btn btn-primary" type="submit" [disabled]="!signUpForm.valid">Submit</button>
+  	
+    	</form>
 		</div>
 	</div>
 </div>

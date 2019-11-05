@@ -1,0 +1,66 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 ">
+
+			<form  [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+					<label for="projectname" >Project Name: </label>
+					<input 
+            type="Text"
+            id="projectname"
+            formControlName="projectname"
+            class="form-control">
+				</div>
+
+        <span *ngIf="!assignmentForm.get('projectname').valid && assignmentForm.get('projectname').touched && assignmentForm.get('projectname').errors!=null" class="help-block">
+          <span *ngIf="assignmentForm.get('projectname').errors['required'] " class="help-block">Project name is mandatory!</span>
+          
+          <span *ngIf="assignmentForm.get('projectname').errors['forbiddenProjName']"> Restricted project name!</span>
+
+          <span *ngIf="assignmentForm.get('projectname').errors['forbidenAsyncProjectName']">  Asyn-Restricted project name!</span>
+
+
+
+        </span>
+       
+
+       	<div class="form-group">
+					<label for="email" >Email: </label>
+					<input 
+              type="email" 
+              id="email" 
+              formControlName="email"  
+              class="form-control">
+				</div>
+        
+
+         <span *ngIf="!assignmentForm.get('email').valid && assignmentForm.get('email').touched && assignmentForm.get('email').errors!=null" class="help-block">
+          <span *ngIf="assignmentForm.get('email').errors['required'] " class="help-block">Email  is mandatory!</span>
+           <span *ngIf="assignmentForm.get('email').errors['email'] " class="help-block">Invalid email id!</span>
+
+         </span>
+      
+    	
+        <div class="form-group">
+          <label for="projectstatus"> Project Status: </label>
+          <select id ="projectstatus" formControlName="projectstatus" class="form-control" >
+              <option value="stable">Stable</option>
+              <option value="critical"> Critical</option>
+              <option value="finished">Finished</option>
+          </select>
+        </div>
+
+        <span *ngIf="!assignmentForm.get('projectstatus').valid && assignmentForm.get('projectstatus').touched && assignmentForm.get('projectstatus').errors!=null" class="help-block">
+          <span *ngIf="assignmentForm.get('projectstatus').errors['required'] " class="help-block">Project status  is mandatory!</span>
+           
+
+         </span>
+
+       
+        <span *ngIf="!assignmentForm.valid && assignmentForm.touched" class="help-block">Please provide valid data!</span>
+     		<button class="btn btn-primary" type="submit" [disabled]="assignmentForm.valid">Submit</button>
+  	
+    	</form>
+		</div>
+	</div>
+</div>

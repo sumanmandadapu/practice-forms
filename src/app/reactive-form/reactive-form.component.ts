@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormControl,FormArray ,Validators} from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-reactive-form',
@@ -19,8 +20,8 @@ export class ReactiveFormComponent implements OnInit {
   ngOnInit() {
     this.signUpForm= new FormGroup({
       'userdata': new FormGroup({ 
-      'username' :new FormControl(null,Validators.required) ,
-      'email' :new FormControl(null,[Validators.required,Validators.email]) ,}),
+      'username' :new FormControl(null,[Validators.required,this.forbiddenName.bind(this)]) ,
+      'email' :new FormControl(null,[Validators.required,Validators.email],this.forbiddenEmail),}),
       'gender' :new FormControl('Male'),
       'hobbies': new FormArray([])
     });
@@ -41,7 +42,6 @@ getControls() {
 }
 
 forbiddenHobbie(control:FormControl):{ [verror:string] : boolean} {
-  
   if (this.forbiddenHobbies.indexOf(control.value)!=-1){
       return {'forbiddenHobbie': true};
   }
@@ -49,8 +49,26 @@ forbiddenHobbie(control:FormControl):{ [verror:string] : boolean} {
     return null;
   }
 }
-forbiddenEmail(){
+forbiddenName(control:FormControl) : {[fuerror:string]: boolean}{
 
+  if (this.forbiddenNames.indexOf(control.value)){
+      return {'forbiddenUser':true};
+  }else{
+    return null;
+  }
+
+}
+forbiddenEmail(control :FormControl) : Promise<any>| Observable<any>{
+  const promise= new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+      if (this.forbiddenEmails.indexOf(control.value))  {
+          resolve({'forbiddenEmail':true});
+      } else{
+          resolve(null);
+      }   
+    },1000);
+  });
+  return promise;
 }
 
 }

@@ -41,14 +41,20 @@
         <div 
           class="form-group"
           formArrayName="hobbies"
-          *ngFor="let hobbie of getControls(); let i = index"
-        >
+          *ngFor="let hobbie of getControls(); let i = index">
           <input type="text" class="form-control" [formControlName]="i" >
+
+          <span *ngIf="!getControls()[i].valid && getControls()[i].touched"> 
+            <span *ngIf="getControls()[i].errors['forbiddenHobbie']" class="help-block"> 
+               Restricted hobbie!
+            </span>
+            <span *ngIf="getControls()[i].errors['required']" class="help-block"> 
+             Hobbie is required
+            </span>
+          </span>
         </div>
-      
         <span *ngIf="!signUpForm.valid && signUpForm.touched" class="help-block">Please provide valid data!</span>
-     
-     		<button class="btn btn-primary" type="submit" [disabled]="!signUpForm.valid">Submit</button>
+     		<button class="btn btn-primary" type="submit" [disabled]="signUpForm.valid">Submit</button>
   	
     	</form>
 		</div>

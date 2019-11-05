@@ -43,8 +43,7 @@ getControls() {
 forbiddenHobbie(control:FormControl):{ [verror:string] : boolean} {
   
   if (this.forbiddenHobbies.indexOf(control.value)!=-1){
-    console.log(control.value);
-    return {'invalid emails': true};
+      return {'forbiddenHobbie': true};
   }
   else{
     return null;

@@ -11,6 +11,8 @@ export class ReactiveFormComponent implements OnInit {
  genders  = ['Male','Female'];
  signUpForm :FormGroup;
  forbiddenHobbies = ['DRINK','SMOKE'];
+ forbiddenNames = ['SUMAN','MAN'];
+ forbiddenEmails = ['suman@abc.com','suman@xyz.com'];
 
   constructor() { }
 
@@ -47,6 +49,9 @@ forbiddenHobbie(control:FormControl):{ [verror:string] : boolean} {
   else{
     return null;
   }
+}
+forbiddenEmail(){
+
 }
 
 }

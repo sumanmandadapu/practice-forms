@@ -18,9 +18,7 @@
           <span *ngIf="signUpForm.get('userdata.username').errors['forbiddenUser']">Restricted username!</span>
         </span>
 
-        <!-- && signUpForm.get('userdata.username').errors!=null -->
-
-				<div class="form-group">
+       	<div class="form-group">
 					<label for="email" >Email: </label>
 					<input 
               type="email" 
@@ -34,7 +32,7 @@
             <span *ngIf="signUpForm.get('userdata.email').errors['forbiddenEmail']">Restricted email!</span>
          </span>
       	</div>
-    		<!--&& signUpForm.get('userdata.email').errors!=null -->
+    	
         <div class="radio" *ngFor = "let gendr of genders">
          <label> <input 
             type="radio"

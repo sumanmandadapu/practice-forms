@@ -21,7 +21,7 @@ export class ReactiveFormComponent implements OnInit {
     this.signUpForm= new FormGroup({
       'userdata': new FormGroup({ 
       'username' :new FormControl(null,[Validators.required,this.forbiddenName.bind(this)]) ,
-      'email' :new FormControl(null,[Validators.required,Validators.email],this.forbiddenEmail),}),
+      'email' :new FormControl(null,[Validators.required,Validators.email],this.forbiddenEmail.bind(this)),}),
       'gender' :new FormControl('Male'),
       'hobbies': new FormArray([])
     });
@@ -51,7 +51,7 @@ forbiddenHobbie(control:FormControl):{ [verror:string] : boolean} {
 }
 forbiddenName(control:FormControl) : {[fuerror:string]: boolean}{
 
-  if (this.forbiddenNames.indexOf(control.value)){
+  if (this.forbiddenNames.indexOf(control.value)!=-1){
       return {'forbiddenUser':true};
   }else{
     return null;
@@ -59,9 +59,9 @@ forbiddenName(control:FormControl) : {[fuerror:string]: boolean}{
 
 }
 forbiddenEmail(control :FormControl) : Promise<any>| Observable<any>{
-  const promise= new Promise((resolve,reject)=>{
+  const promise= new Promise<any>((resolve,reject)=>{
     setTimeout(()=>{
-      if (this.forbiddenEmails.indexOf(control.value))  {
+      if (this.forbiddenEmails.indexOf(control.value)!=-1)  {
           resolve({'forbiddenEmail':true});
       } else{
           resolve(null);

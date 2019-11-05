@@ -13,7 +13,12 @@
               class="form-control"
           >
 				</div>
-        <span *ngIf=" !signUpForm.get('userdata.username').valid && signUpForm.get('userdata.username').touched" class="help-block"> Please provide valid username!</span>
+        <span *ngIf=" !signUpForm.get('userdata.username').valid && signUpForm.get('userdata.username').touched && signUpForm.get('userdata.username').errors!=null" class="help-block"> 
+          <span *ngIf="signUpForm.get('userdata.username').errors['required']">Username is mandatory!</span>
+          <span *ngIf="signUpForm.get('userdata.username').errors['forbiddenUser']">Restricted username!</span>
+        </span>
+
+        <!-- && signUpForm.get('userdata.username').errors!=null -->
 
 				<div class="form-group">
 					<label for="email" >Email: </label>
@@ -23,9 +28,13 @@
               formControlName="email"  
               class="form-control">
 				</div>
-        <span *ngIf=" !signUpForm.get('userdata.email').valid && signUpForm.get('userdata.email').touched" class="help-block"> Please provide valid email!</span>
+        <span *ngIf=" !signUpForm.get('userdata.email').valid && signUpForm.get('userdata.email').touched && signUpForm.get('userdata.email').errors!=null" class="help-block">
+            <span *ngIf="signUpForm.get('userdata.email').errors['required']">Email is mandatory!</span>
+            <span *ngIf="signUpForm.get('userdata.email').errors['email']">Invalid email id!</span>
+            <span *ngIf="signUpForm.get('userdata.email').errors['forbiddenEmail']">Restricted email!</span>
+         </span>
       	</div>
-    		
+    		<!--&& signUpForm.get('userdata.email').errors!=null -->
         <div class="radio" *ngFor = "let gendr of genders">
          <label> <input 
             type="radio"
@@ -42,19 +51,17 @@
           class="form-group"
           formArrayName="hobbies"
           *ngFor="let hobbie of getControls(); let i = index">
+
           <input type="text" class="form-control" [formControlName]="i" >
 
           <span *ngIf="!getControls()[i].valid && getControls()[i].touched"> 
-            <span *ngIf="getControls()[i].errors['forbiddenHobbie']" class="help-block"> 
-               Restricted hobbie!
-            </span>
-            <span *ngIf="getControls()[i].errors['required']" class="help-block"> 
-             Hobbie is required
-            </span>
+            <span *ngIf="getControls()[i].errors['forbiddenHobbie']" class="help-block">Restricted hobbie!</span>
+            <span *ngIf="getControls()[i].errors['required']" class="help-block">Hobbie is required</span>
           </span>
         </div>
+
         <span *ngIf="!signUpForm.valid && signUpForm.touched" class="help-block">Please provide valid data!</span>
-     		<button class="btn btn-primary" type="submit" [disabled]="signUpForm.valid">Submit</button>
+     		<button class="btn btn-primary" type="submit" [disabled]="!signUpForm.valid">Submit</button>
   	
     	</form>
 		</div>
